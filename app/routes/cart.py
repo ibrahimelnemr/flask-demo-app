@@ -1,5 +1,13 @@
 import unittest
 
+class TestCartRoutes(unittest.TestCase):
+
+    # Add your cart route tests here
+
+    pass
+
+import unittest
+
 //Add similar test structure as auth.py, adapting for cart routes and models
 from flask import Blueprint, jsonify, request
 from app.models import CartItem, Product, User
