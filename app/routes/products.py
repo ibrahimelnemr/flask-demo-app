@@ -1,3 +1,23 @@
+from flask import Blueprint, render_template
+
+from app.models import Contract, ContractTemplate
+
+
+
+products_bp = Blueprint('products', __name__)
+
+
+
+@products_bp.route('/contracts/<int:contract_id>')
+
+def view_contract(contract_id):
+
+    # Replace with actual contract retrieval logic
+
+    contract = Contract(contract_id, {'name': 'Sample Contract'}, 'This is a sample contract.')
+
+    return render_template('contract.html', contract=contract)
+
 import unittest
 
 //Add similar test structure as auth.py, adapting for product routes and models
