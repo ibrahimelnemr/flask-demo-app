@@ -1,3 +1,6 @@
+import unittest
+
+//Add similar test structure as auth.py, adapting for cart routes and models
 from flask import Blueprint, jsonify, request
 from app.models import CartItem, Product, User
 from app import db
