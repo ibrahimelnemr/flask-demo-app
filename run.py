@@ -2,10 +2,13 @@ from app import create_app, db
 from app.models import Product
 
 app = create_app()
+from app import celery
+
 
 @app.before_first_request
 def seed_data():
     db.create_all()
+    celery.start()
     if not Product.query.first():
         db.session.add_all([
             Product(name="T-shirt", price=20.0),
