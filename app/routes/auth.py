@@ -1,3 +1,47 @@
+import unittest
+
+from flask import Flask, request, jsonify #Import necessary modules
+
+from app.models import User # Assuming you have a User model
+
+class TestAuthRoutes(unittest.TestCase):
+
+    #Setup method to create a test app instance
+
+    def setUp(self):
+
+        self.app = Flask(__name__)
+
+        #Register your auth routes here (replace with your actual routes)
+
+        #Example:
+
+        #@self.app.route('/login', methods=['POST'])
+
+        #def login():
+
+        #    pass
+
+        self.client = self.app.test_client()
+
+    def test_login(self):
+
+        # Add your test logic here.  Example using the test client:
+
+        response = self.client.post('/login', json={'username': 'testuser', 'password': 'password'}) #Replace with your login endpoint and data
+
+        self.assertEqual(response.status_code, 200) # Or the expected status code
+
+    # Add more tests for other auth routes
+
+    def tearDown(self):
+
+        pass #Clean up if needed
+
+if __name__ == '__main__':
+
+    unittest.main()
+
 from flask import Blueprint, request, jsonify
 from app.models import User
 from app import db
