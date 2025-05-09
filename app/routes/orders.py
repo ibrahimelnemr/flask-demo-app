@@ -1,5 +1,13 @@
 import unittest
 
+class TestOrderRoutes(unittest.TestCase):
+
+    # Add your order route tests here
+
+    pass
+
+import unittest
+
 //Add similar test structure as auth.py, adapting for order routes and models
 from flask import Blueprint, jsonify
 from app.models import CartItem, Order
