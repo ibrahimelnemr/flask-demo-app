@@ -7,6 +7,12 @@ from app import db
 from flask_jwt_extended import jwt_required, get_jwt_identity
 
 orders_bp = Blueprint("orders", __name__)
+@celery.task
+def process_order(order_id):
+    # Simulate a long-running task
+    # ... your order processing logic here ...
+    print(f'Order {order_id} processed')
+
 
 @orders_bp.route("/", methods=["POST"])
 @jwt_required()
@@ -16,6 +22,8 @@ def place_order():
     if not cart_items:
         return jsonify({"error": "Cart is empty"}), 400
 
+    process_order.delay(order.id)
+    flash('Order placed successfully. Processing in background.', 'success')
     total = sum(item.product.price * item.quantity for item in cart_items)
     order = Order(user_id=user_id, total=total)
     db.session.add(order)
