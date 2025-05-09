@@ -1,3 +1,29 @@
+from typing import Dict, List, Any
+
+
+
+class Contract:
+
+    def __init__(self, contract_id: int, details: Dict[str, Any], template: str):
+
+        self.contract_id = contract_id
+
+        self.details = details
+
+        self.template = template
+
+
+
+class ContractTemplate:
+
+    def __init__(self, template_id: int, name: str, content: str):
+
+        self.template_id = template_id
+
+        self.name = name
+
+        self.content = content
+
 import unittest
 
 from app.models import Product, User, Order, CartItem # Assuming these are your models
