@@ -1,3 +1,13 @@
+import unittest
+
+
+
+class TestModels(unittest.TestCase):
+
+    # Add your model tests here
+
+    pass
+
 from typing import Dict, List, Any
 
 
