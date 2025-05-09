@@ -1,3 +1,11 @@
+import unittest
+
+class TestProductRoutes(unittest.TestCase):
+
+    # Add your product route tests here
+
+    pass
+
 from flask import Blueprint, render_template
 
 from app.models import Contract, ContractTemplate
