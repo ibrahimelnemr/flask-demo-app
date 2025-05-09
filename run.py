@@ -1,7 +1,44 @@
 from app import create_app, db
 from app.models import Product
 
-app = create_app()
+import unittest
+
+import sys
+
+import os
+
+from app import app
+
+from app.models import TestModels
+
+from app.routes.auth import TestAuthRoutes
+
+from app.routes.cart import TestCartRoutes
+
+from app.routes.orders import TestOrderRoutes
+
+from app.routes.products import TestProductRoutes
+
+
+
+if __name__ == '__main__':
+
+    suite = unittest.TestSuite()
+
+    suite.addTest(unittest.makeSuite(TestModels))
+
+    suite.addTest(unittest.makeSuite(TestAuthRoutes))
+
+    suite.addTest(unittest.makeSuite(TestCartRoutes))
+
+    suite.addTest(unittest.makeSuite(TestOrderRoutes))
+
+    suite.addTest(unittest.makeSuite(TestProductRoutes))
+
+    runner = unittest.TextTestRunner()
+
+    runner.run(suite)
+
 from app import celery
 
 
