@@ -1,5 +1,51 @@
 import unittest
 
+from flask import Flask, request, jsonify
+
+from unittest.mock import patch
+
+
+
+class TestAuthRoutes(unittest.TestCase):
+
+    def setUp(self):
+
+        self.app = Flask(__name__)
+
+        # Add your routes here for testing
+
+        # Example:
+
+        # @self.app.route('/login', methods=['POST'])
+
+        # def login():
+
+        #     return jsonify({'message': 'Login successful'})
+
+    
+
+    @patch('flask.request')
+
+    def test_login(self, mock_request):
+
+        # Mock request data
+
+        mock_request.method = 'POST'
+
+        mock_request.get_json.return_value = {'username': 'testuser', 'password': 'testpassword'}
+
+        with self.app.test_client() as client:
+
+            response = client.post('/login')
+
+            self.assertEqual(response.status_code, 200)
+
+            self.assertEqual(response.json['message'], 'Login successful')
+
+    pass
+
+import unittest
+
 from flask import Flask, request, jsonify #Import necessary modules
 
 from app.models import User # Assuming you have a User model
