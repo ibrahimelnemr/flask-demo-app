@@ -4,8 +4,23 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_login import LoginManager, UserMixin, current_user, login_user, logout_user, login_required
 from werkzeug.security import generate_password_hash, check_password_hash
+from flask_httpauth import HTTPBasicAuth
+from werkzeug.security import generate_password_hash, check_password_hash
+from app.models import User
+
+
 import os
 from config import *
+auth = HTTPBasicAuth()
+
+@auth.verify_password
+def verify_password(username, password):
+    user = User.query.filter_by(username=username).first()
+    if user and check_password_hash(user.password_hash, password):
+        return user
+    return None
+
+
 
 from flask_login import LoginManager
 login = LoginManager(app)
