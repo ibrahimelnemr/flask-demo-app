@@ -7,7 +7,13 @@ from werkzeug.security import generate_password_hash, check_password_hash
 import os
 from config import *
 
+from flask_login import LoginManager
+login = LoginManager(app)
+login.login_view = 'login'
 app = Flask(__name__)
+@login.user_loader
+def load_user(id):
+    return User.query.get(int(id))
 app.config.from_object(os.environ.get('APP_SETTINGS') or 'config')
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
