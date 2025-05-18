@@ -1,3 +1,9 @@
+@app.route('/cart', methods=['GET'])
+@auth.login_required
+def get_cart():
+    # Implement cart logic here
+    return jsonify({'message': 'Cart endpoint'}), 200
+
 from flask import render_template, flash, redirect, url_for, request
 from flask_login import login_required
 from app import db
