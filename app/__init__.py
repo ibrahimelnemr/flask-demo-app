@@ -1,4 +1,18 @@
 from flask import Flask
+from flask import Flask, request, jsonify
+from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
+from flask_login import LoginManager, UserMixin, current_user, login_user, logout_user, login_required
+from werkzeug.security import generate_password_hash, check_password_hash
+import os
+from config import *
+
+app = Flask(__name__)
+app.config.from_object(os.environ.get('APP_SETTINGS') or 'config')
+db = SQLAlchemy(app)
+migrate = Migrate(app, db)
+login = LoginManager(app)
+login.login_view = 'auth.login'
 from flask_sqlalchemy import SQLAlchemy
 from flask_jwt_extended import JWTManager
 from app.routes import bp as main_bp
@@ -8,6 +22,12 @@ app.register_blueprint(auth_bp, url_prefix='/auth')
 
 
 db = SQLAlchemy()
+
+from app.models import User
+
+@login.user_loader
+def load_user(id):
+    return User.query.get(int(id))
 jwt = JWTManager()
 from flask_login import LoginManager
 login_manager = LoginManager()
