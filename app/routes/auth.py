@@ -1,3 +1,30 @@
+from flask import request, jsonify
+from app import db, auth
+from app.models import User
+from app import app
+
+@app.route('/register', methods=['POST'])
+@auth.login_required
+def register():
+    data = request.get_json()
+    if not data or 'username' not in data or 'password' not in data:
+        return jsonify({'message': 'Invalid input'}), 400
+    user = User(username=data['username'])
+    user.set_password(data['password'])
+    db.session.add(user)
+    db.session.commit()
+    return jsonify({'message': 'User registered successfully'}), 201
+
+@app.route('/login', methods=['POST'])
+def login():
+    data = request.get_json()
+    if not data or 'username' not in data or 'password' not in data:
+        return jsonify({'message': 'Invalid input'}), 400
+    user = User.query.filter_by(username=data['username']).first()
+    if user is None or not user.check_password(data['password']):
+        return jsonify({'message': 'Invalid username or password'}), 401
+    return jsonify({'message': 'Login successful'}), 200
+
 from flask import render_template, flash, redirect, url_for, request
 from flask import render_template, redirect, url_for, flash, request
 from flask_login import login_user, logout_user, current_user, login_required
