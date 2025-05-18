@@ -1,3 +1,9 @@
+@app.route('/orders', methods=['GET'])
+@auth.login_required
+def get_orders():
+    # Implement orders logic here
+    return jsonify({'message': 'Orders endpoint'}), 200
+
 from flask import render_template, flash, redirect, url_for, request
 from flask_login import login_required
 from app import db
