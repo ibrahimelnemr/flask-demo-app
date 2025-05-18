@@ -1,3 +1,12 @@
+from flask import render_template, flash, redirect, url_for, request
+from flask_login import login_required
+from app import db
+from app.models import *
+
+@bp.route('/orders')
+@login_required
+def orders():
+    return render_template('orders.html')
 import unittest
 
 class TestOrderRoutes(unittest.TestCase):
